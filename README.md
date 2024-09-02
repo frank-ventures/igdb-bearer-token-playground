@@ -9,13 +9,14 @@ To run and test this locally:
 - Clone the repo
 - Make an `.env.local` file
 - You'll need these in your `.env.local`: `TWITCH_TV_ID` and `TWITCH_TV_SECRET`. [Get them from following these instructions](https://api-docs.igdb.com/#getting-started)
+- and also a `DATABASE_URL` to connect to SupaBase, or whatever database you use.
 - `npm install` all the things
 - `npm run dev`
 
 # What?
 
 Weird things happen.
-The server and client components are handling fetches mostly separate from each other.
+The server and client components on Page 1 and Page 2 are handling fetches sorta separate from each other.
 
 Currently, the `FetchToken.js` module initialises a variable to store the Bearer Token, and has a bunch of functions within, mainly for:
 
@@ -57,6 +58,8 @@ Now try this:
 Overall, not an ideal way for the client components to interact with the server-stored token.
 In addition, if you shut down the server, and restart with `npm run dev` you'll probably see the same Bearer Token has been 'fetched' by the server, probably due to how Next caches fetch requests.
 
+---
+
 # What we need then
 
 As per the Home pages definition, the solution we want has to:
@@ -65,7 +68,7 @@ As per the Home pages definition, the solution we want has to:
 - Validate it, if it is.
 - Fetch one, if it isnt.
 - Store a token once fetched.
-- Make sure the app isnt fetching 500 bearer tokens all day everyday...
+- Make sure the app isnt fetching 500 new bearer tokens all day everyday...
 
 Implementing storage and fetching from a database is one way to get a win here, as the main app already uses a database in its functionality.
 Considerations are latency (it's slow!), potential abuse of database calls, and another 'step' in the process, but perhaps at the gain of robustness and simplicity.
