@@ -8,7 +8,7 @@ export default async function WorkingMethod() {
     <>
       <div>
         <h1>Heres a Working Method! Woo...</h1>
-        <p>But it's kinda slow.</p>
+        <p>But its kinda slow.</p>
       </div>
       <CheckTokenExists />
       <RunGetFunction />
